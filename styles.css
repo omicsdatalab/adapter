@@ -1,0 +1,16 @@
+.pad-left {
+    padding-left: 1.5em;
+}
+
+.pad-bot {
+    padding-bottom: 1em;
+}
+
+.margin-bot {
+    margin-bottom: 1em;
+}
+
+.margin-bot-top {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}

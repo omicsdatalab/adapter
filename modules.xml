@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+    <module>
+        <name>searchGUI</name>
+        <category>search</category>
+        <description>description1</description>
+        <inputFile>input.xml</inputFile>
+        <inputParam>true</inputParam>
+        <outputFile_required>false</outputFile_required>
+        <outputFile>modules.xml</outputFile>
+        <outputParam>true</outputParam>
+        <params>-spectrum_files xyz.mgf -output_folder folder_path -id_params params.par</params>
+        <command>java -cp SearchGUI-3.3.3.jar eu.isas.searchgui.cmd.SearchCLI -spectrum_files xyz.mgf -output_folder folder_path -id_params params.par</command>
+    </module>
+    <module>
+        <name>ProteoGrouper</name>
+        <category>Grouper</category>
+        <description>This tool can perform sequence-based protein inference, based on a set of PSMs. It should be parameterized with the CV accession for the PSM score used to create a protein score. The tool also needs to know whether the score should be log transformed (true for e/p-values etc) to create a positive protein score.</description>
+        <inputFile>[input].mzid or [input].mzid.gz</inputFile>
+        <inputParam></inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>output2.txt</outputFile>
+        <outputParam></outputParam>
+        <params>-requireSIIsToPassThreshold true -verboseOutput false -cvAccForSIIScore \"MS:1001171\" -logTransScore false -version1_1 true -compress true</params>
+        <command>java -jar "mzidlib-1.7.jar" ProteoGrouper mydata_fdr_threshold.mzid.gz mydata_fdr_threshold_groups.mzid.gz -requireSIIsToPassThreshold true -verboseOutput false -cvAccForSIIScore \"MS:1001171\" -logTransScore false -version1_1 true -compress true</command>
+    </module>
+    <module>
+        <name>Omssa2mzid</name>
+        <category>MZID</category>
+        <description>This tool converts OMSSA omx (XML) files into mzid. It has optional parameters for inserting fragment ions into mzid (much larger files). If a decoy Regex is specified, the mzid attribute isDecoy will be set correctly for peptides. No protein inference is done by this tool (no protein list produced). To make valid mzid output, OMSSA must have been run with the option “-w” include spectra and search params in search results. Without this option, search parameters cannot be extracted from OMSSA. In this case, the OMSSA CSV converter should be used.</description>
+        <inputFile>[input]. omx or [input]. omx.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output].mzid or [output].mzid.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-outputFragmentation false -decoyRegex REVERSED -mzidVer 1.2 -compress false</params>
+        <command>java -jar "mzidlib-1.7.jar" Omssa2mzid mydata.omx mydata_omssa.mzid.gz -outputFragmentation false -decoyRegex Rev_ -compress true</command>
+    </module>
+    <module>
+        <name>Tandem2mzid</name>
+        <category>MZID</category>
+        <description>This tool converts X!Tandem XML results files into mzid. There are several optional parameters: whether to export fragment ions (makes bigger files), and include a decoy regular expression to set the isDecoy attribute in mzid. Valid mzid files require several pieces of metadata that are difficult to extract from mzid files, the format of the database searched and the file format of the input spectra. If these parameters are not set, the converter attempts to guess these based on the file extension. In X!Tandem, the numbering of spectra differs dependent upon the input spectra type - the IDs start at zero for mzML files, the IDs start at one for other spectra types e.g. MGF. This is a command line parameter which should be set to make sure that the mzid file references the correct spectrum in the source spectrum file.</description>
+        <inputFile>[input]. xml or [input]. xml.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output].mzid or [output].mzid.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-outputFragmentation (true|false) -decoyRegex decoyRegex -databaseFileFormatID (e.g. MS:1001348 is FASTA format) "MS:100XXX" -massSpecFileFormatID (e.g. MS:1001062 is MGF) "MS:100XXX" -idsStartAtZero (true for mzML searched, false otherwise) true|false -compress true|false</params>
+        <command>java -jar "mzidlib-1.7.jar" Tandem2mzid mydata.xml mydata_tandem.mzid.gz -outputFragmentation false -decoyRegex Rev_ -databaseFileFormatID MS:1001348 -massSpecFileFormatID MS:1001062 -idsStartAtZero false -compress false</command>
+    </module>
+    <module>
+        <name>FalseDiscoveryRateGlobal</name>
+        <category>n/a</category>
+        <description>The Global FDR module calculates the FDR on one of the three levels. 1) PSM, 2) Peptide, 3) ProteinGroup. If ProteinGroup is chosen, there are two options for protein level PAG or PDH.</description>
+        <inputFile>[input].mzid or [input].mzid.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output].mzid or [output].mzid.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-decoyValue decoyToTargetRatio -decoyRegex decoyRegex -cvTerm cvTerm -betterScoresAreLower true|false -fdrLevel fdrLevel -proteinLevel proteinLevel [-compress true|false]</params>
+        <command>java -jar "mzidlib-1.7.jar" FalseDiscoveryRateGlobal mydata.mzid mydata_fdr.mzid.gz -decoyValue 1 -decoyRegex REVERSED -cvTerm MS:1002125 -betterScoresAreLower true -fdrLevel Peptide -proteinLevel PAG -compress false</command>
+    </module>
+    <module>
+        <name>Threshold</name>
+        <category>n/a</category>
+        <description>This tool can be used to set the passThreshold parameter for PSMs or proteins in an mzid file, to indicate high-quality identifications that will be used by another tool. It can handle any type of score (sourced from the PSI-MS CV) and scores can be ordered low to high or vice versa. If deleteUnderThreshold is specified, PSMs and referenced proteins under the threshold will be removed from the file.</description>
+        <inputFile>[input].mzid or [input].mzid.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output].mzid or [output].mzid.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-isPSMThreshold true|false -cvAccessionForScoreThreshold "MS:100XXX" -threshValue doubleValue  -betterScoresAreLower true|false -deleteUnderThreshold true|false [-compress true|false]</params>
+        <command>java -jar "mzidlib-1.7.jar" Threshold mydata_fdr.mzid.gz mydata_fdr_threshold.mzid.gz -isPSMThreshold true -cvAccessionForScoreThreshold "MS:1002125" -threshValue 0.01 -betterScoresAreLower false -deleteUnderThreshold true -compress true</command>
+    </module>
+    <module>
+        <name>Mzid2Csv</name>
+        <category>n/a</category>
+        <description>This tool can export from an mzid file into CSV, according to one of the four types of export specified as parameters.</description>
+        <inputFile>[input].mzid or [input].mzid.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output].csv or [output].csv.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-exportType exportProteinGroups|exportPSMs|exportProteinsOnly|exportRepProteinPerPAGOnly|exportProteoAnnotator  [-verboseOutput true|false] [-compress true|false]</params>
+        <command>java -jar "mzidlib-1.7.jar" Mzid2Csv mydata_fdr.mzid.gz mydata.csv -exportType exportProteinGroups -verboseOutput false -compress false</command>
+    </module>
+</modules>
