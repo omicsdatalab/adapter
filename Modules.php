@@ -5,6 +5,8 @@
  * Date: 31/07/2018
  * Time: 11:45
  */
+require 'header.php';
+require 'navbar.php';
 require 'Module.php';
 $xml = simplexml_load_file("modules.xml") or die("Error: Cannot create xml object.");
 $modules = array();
@@ -24,17 +26,6 @@ foreach($xml->children() as $moduleFromXml) {
     array_push($modules, $moduleToAdd);
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bioliner</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles.css">
-<!--    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>-->
-</head>
-<body>
     <br>
     <div class="container">
         <ul class="nav nav-tabs justify-content-center" role="tablist">
@@ -88,7 +79,7 @@ foreach($xml->children() as $moduleFromXml) {
                 <?php endforeach; ?>
             </div>
             <div class="tab-pane fade" role="tabpanel" id="new-module">
-                <form action="" method="post">
+                <form action="" enctype="multipart/form-data" method="POST">
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
