@@ -8,8 +8,46 @@
 require 'header.php';
 require 'navbar.php';
 require 'Module.php';
+session_start();
+$userModule = null;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userModule = new Module();
+    $userModule->name = $_POST["name"];
+    $userModule->category = $_POST["category"];
+    $userModule->description = $_POST["description"];
+    $userModule->inputFile = $_POST["inputFile"];
+    $userModule->inputParam = $_POST["inputParam"];
+    $userModule->outputFile_required = $_POST["outputFile_required"];
+    $userModule->outputFile = $_POST["outputFile"];
+    $userModule->outputParam = $_POST["outputParam"];
+    $userModule->command = $_POST["command"];
+    $userModule->params = $_POST["params"];
+
+    $target_dir = "uploads" . DIRECTORY_SEPARATOR . session_id() . DIRECTORY_SEPARATOR;1
+    if(!file_exists($target_dir)) {
+        mkdir($target_dir);
+    }
+
+    $target_file = $target_dir . basename($_FILES["moduleFile"]["name"]);
+
+    if (move_uploaded_file($_FILES["moduleFile"]["tmp_name"], $target_file)) {
+        $_SESSION["userModules"][] = $userModule;
+        echo "The file ". basename( $_FILES["moduleFile"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+
 $xml = simplexml_load_file("modules.xml") or die("Error: Cannot create xml object.");
 $modules = array();
+
+if($_SESSION['userModules'] == null) {
+    $_SESSION['userModules'] = array();
+    $modules = $_SESSION['userModules'];
+} else {
+    $modules = $_SESSION['userModules'];
+}
 
 foreach($xml->children() as $moduleFromXml) {
     $moduleToAdd = new Module();
@@ -23,7 +61,7 @@ foreach($xml->children() as $moduleFromXml) {
     $moduleToAdd->outputParam = $moduleFromXml->outputParam;
     $moduleToAdd->params = $moduleFromXml->params;
     $moduleToAdd->command = $moduleFromXml->command;
-    array_push($modules, $moduleToAdd);
+    $modules[] = $moduleToAdd;
 }
 ?>
     <br>
@@ -79,57 +117,83 @@ foreach($xml->children() as $moduleFromXml) {
                 <?php endforeach; ?>
             </div>
             <div class="tab-pane fade" role="tabpanel" id="new-module">
-                <form action="" enctype="multipart/form-data" method="POST">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data" method="POST">
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter a name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter a name">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="category">Category</label>
-                                <input type="text" class="form-control" id="category" placeholder="Enter a category">
+                                <input type="text" class="form-control" name="category" id="category" placeholder="Enter a category">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" placeholder="Enter a description">
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Enter a description">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">Input file is a parameter:</div>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio1" value="true">
+                                <label class="form-check-label" for="inputParamTrue">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio2" value="false" checked>
+                                <label class="form-check-label" for="inputParamFalse">False</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Input File</label>
-                        <input type="text" class="form-control" id="inputFile" placeholder="Enter an input file">
+                        <input type="text" class="form-control" name="inputFile" id="inputFile" placeholder="Enter an input file">
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-2">Output file required?</div>
                         <div class="col-sm-10">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="outputFileRadio" id="outputFileRadio1" value="true" checked>
-                                <label class="form-check-label" for="outputFileTrue">True</label>
+                                <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio1" value="true" checked>
+                                <label class="form-check-label" for="outputFile_required">True</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="outputFileRadio" id="inlineRadio2" value="false">
-                                <label class="form-check-label" for="outputFileFalse">False</label>
+                                <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio2" value="false">
+                                <label class="form-check-label" for="outputFile_required">False</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">Output file is a parameter:</div>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio1" value="true">
+                                <label class="form-check-label" for="outputParamTrue">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio2" value="false" checked>
+                                <label class="form-check-label" for="outputParamFalse">False</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Output File</label>
-                        <input type="text" class="form-control" id="outputFile" placeholder="Enter an output file">
+                        <input type="text" class="form-control" name="outputFile" id="outputFile" placeholder="Enter an output file">
                     </div>
                     <div class="form-group">
                         <label for="command">Command</label>
-                        <input type="text" class="form-control" id="command" placeholder="Enter a command">
+                        <input type="text" class="form-control" id="command" name="command" placeholder="Enter a command">
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Parameters</label>
-                        <textarea class="form-control" id="params" rows="3" placeholder="Enter the parameters."></textarea>
+                        <textarea class="form-control" id="params" name="params" rows="3" placeholder="Enter the parameters."></textarea>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose Module Executable</label>
+                        <input type="file" class="custom-file-input" name="moduleFile" id="moduleFile">
+                        <label class="custom-file-label" for="moduleFile">Choose Module Executable</label>
                     </div>
                     <button type="submit" class="btn btn-primary margin-bot-top">Submit</button>
                 </form>
