@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userModule->command = $_POST["command"];
     $userModule->params = $_POST["params"];
 
-    $target_dir = "uploads" . DIRECTORY_SEPARATOR . session_id() . DIRECTORY_SEPARATOR;1
+    $target_dir = "uploads" . DIRECTORY_SEPARATOR . session_id() . DIRECTORY_SEPARATOR;
     if(!file_exists($target_dir)) {
         mkdir($target_dir);
     }
