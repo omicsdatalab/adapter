@@ -10,58 +10,31 @@ require 'navbar.php';
 require 'Module.php';
 session_start();
 $userModule = null;
+require 'addModule.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userModule = new Module();
-    $userModule->name = $_POST["name"];
-    $userModule->category = $_POST["category"];
-    $userModule->description = $_POST["description"];
-    $userModule->inputFile = $_POST["inputFile"];
-    $userModule->inputParam = $_POST["inputParam"];
-    $userModule->outputFile_required = $_POST["outputFile_required"];
-    $userModule->outputFile = $_POST["outputFile"];
-    $userModule->outputParam = $_POST["outputParam"];
-    $userModule->command = $_POST["command"];
-    $userModule->params = $_POST["params"];
-
-    $target_dir = "uploads" . DIRECTORY_SEPARATOR . session_id() . DIRECTORY_SEPARATOR;
-    if(!file_exists($target_dir)) {
-        mkdir($target_dir);
-    }
-
-    $target_file = $target_dir . basename($_FILES["moduleFile"]["name"]);
-
-    if (move_uploaded_file($_FILES["moduleFile"]["tmp_name"], $target_file)) {
-        $_SESSION["userModules"][] = $userModule;
-        echo "The file ". basename( $_FILES["moduleFile"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
-
-$xml = simplexml_load_file("modules.xml") or die("Error: Cannot create xml object.");
+$xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();
 
-if($_SESSION['userModules'] == null) {
+if(empty($_SESSION['userModules'])) {
     $_SESSION['userModules'] = array();
     $modules = $_SESSION['userModules'];
+    foreach($xml->children() as $moduleFromXml) {
+        $moduleToAdd = new Module();
+        $moduleToAdd->name = (string)$moduleFromXml->name;
+        $moduleToAdd->category = (string)$moduleFromXml->category;
+        $moduleToAdd->description = (string)$moduleFromXml->description;
+        $moduleToAdd->inputFile = (string)$moduleFromXml->inputFile;
+        $moduleToAdd->inputParam = (string)$moduleFromXml->inputParam;
+        $moduleToAdd->outputFile_required = (string)$moduleFromXml->outputFile_required;
+        $moduleToAdd->outputFile = (string)$moduleFromXml->outputFile;
+        $moduleToAdd->outputParam = (string)$moduleFromXml->outputParam;
+        $moduleToAdd->params = (string)$moduleFromXml->params;
+        $moduleToAdd->command = (string)$moduleFromXml->command;
+        $modules[] = $moduleToAdd;
+        $_SESSION["userModules"][] = $moduleToAdd;
+    }
 } else {
     $modules = $_SESSION['userModules'];
-}
-
-foreach($xml->children() as $moduleFromXml) {
-    $moduleToAdd = new Module();
-    $moduleToAdd->name = $moduleFromXml->name;
-    $moduleToAdd->category = $moduleFromXml->category;
-    $moduleToAdd->description = $moduleFromXml->description;
-    $moduleToAdd->inputFile = $moduleFromXml->inputFile;
-    $moduleToAdd->inputParam = $moduleFromXml->inputParam;
-    $moduleToAdd->outputFile_required = $moduleFromXml->outputFile_required;
-    $moduleToAdd->outputFile = $moduleFromXml->outputFile;
-    $moduleToAdd->outputParam = $moduleFromXml->outputParam;
-    $moduleToAdd->params = $moduleFromXml->params;
-    $moduleToAdd->command = $moduleFromXml->command;
-    $modules[] = $moduleToAdd;
 }
 ?>
     <br>
@@ -137,15 +110,15 @@ foreach($xml->children() as $moduleFromXml) {
                         <input type="text" class="form-control" id="description" name="description" placeholder="Enter a description">
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-2">Input file is a parameter:</div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-3">Input file is a parameter:</div>
+                        <div class="col-sm-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio1" value="true">
-                                <label class="form-check-label" for="inputParamTrue">True</label>
+                                <label class="form-check-label" for="inputParamTrue">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio2" value="false" checked>
-                                <label class="form-check-label" for="inputParamFalse">False</label>
+                                <label class="form-check-label" for="inputParamFalse">No</label>
                             </div>
                         </div>
                     </div>
@@ -154,28 +127,28 @@ foreach($xml->children() as $moduleFromXml) {
                         <input type="text" class="form-control" name="inputFile" id="inputFile" placeholder="Enter an input file">
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-2">Output file required?</div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-3">Output file required?</div>
+                        <div class="col-sm-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio1" value="true" checked>
-                                <label class="form-check-label" for="outputFile_required">True</label>
+                                <label class="form-check-label" for="outputFile_required">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio2" value="false">
-                                <label class="form-check-label" for="outputFile_required">False</label>
+                                <label class="form-check-label" for="outputFile_required">No</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-2">Output file is a parameter:</div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-3">Output file is a parameter:</div>
+                        <div class="col-sm-9">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio1" value="true">
-                                <label class="form-check-label" for="outputParamTrue">True</label>
+                                <label class="form-check-label" for="outputParamTrue">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio2" value="false" checked>
-                                <label class="form-check-label" for="outputParamFalse">False</label>
+                                <label class="form-check-label" for="outputParamFalse">No</label>
                             </div>
                         </div>
                     </div>
