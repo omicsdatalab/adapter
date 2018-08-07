@@ -16,21 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!file_exists($target_dir)) {
         mkdir($target_dir);
     }
-
-    $target_file = $target_dir . basename($_FILES["moduleFile"]["name"]);
-
-    if (move_uploaded_file($_FILES["moduleFile"]["tmp_name"], $target_file)) {
-        $_SESSION["userModules"][] = $userModule;
-        echo "The file ". basename( $_FILES["moduleFile"]["name"]). " has been uploaded.";
-        $userModuleFile = $target_dir . "module.xml";
-        if(file_exists($userModuleFile)) {
-            createUserModuleXml($userModuleFile, $userModule);
-        } else {
-            copy("module.xml", $userModuleFile);
-            createUserModuleXml($userModuleFile, $userModule);
-        }
+    
+    $userModuleFile = $target_dir . "module.xml";
+    $_SESSION["userModules"][] = $userModule;
+    // If they have already added a module, append to that file.
+    // Otherwise, copy the base module.xml file and append to that.
+    if(file_exists($userModuleFile)) {
+        createUserModuleXml($userModuleFile, $userModule);
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        copy("module.xml", $userModuleFile);
+        createUserModuleXml($userModuleFile, $userModule);
     }
 }
 
@@ -55,4 +50,6 @@ function createUserModuleXml($file, $moduleToAdd) {
     $dom->formatOutput = true;
     $dom->loadXML($xml->asXML());
     $dom->save($file);
+    $_SESSION['moduleFileCreated'] = true;
+    echo "Module file created.";
 }

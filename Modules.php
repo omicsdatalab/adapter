@@ -36,6 +36,13 @@ if(empty($_SESSION['userModules'])) {
 } else {
     $modules = $_SESSION['userModules'];
 }
+
+if(empty($_SESSION['moduleFileCreated'])) {
+    $_SESSION['moduleFileCreated'] = false;
+}
+if(empty($_SESSION['inputFileCreated'])) {
+    $_SESSION['inputFileCreated'] = false;
+}
 ?>
     <br>
     <div class="container">
@@ -164,10 +171,10 @@ if(empty($_SESSION['userModules'])) {
                         <label for="inputFile">Parameters</label>
                         <textarea class="form-control" id="params" name="params" rows="3" placeholder="Enter the parameters."></textarea>
                     </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="moduleFile" id="moduleFile">
-                        <label class="custom-file-label" for="moduleFile">Choose Module Executable</label>
-                    </div>
+<!--                    <div class="custom-file">-->
+<!--                        <input type="file" class="custom-file-input" name="moduleFile" id="moduleFile">-->
+<!--                        <label class="custom-file-label" for="moduleFile">Choose Module Executable</label>-->
+<!--                    </div>-->
                     <button type="submit" class="btn btn-primary margin-bot-top">Submit</button>
                 </form>
             </div>
