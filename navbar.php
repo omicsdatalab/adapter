@@ -5,9 +5,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/views/Modules.php">Modules</a>
-            <a class="nav-item nav-link" href="/views/Workflows.php">Workflows</a>
-            <a class="nav-item nav-link" href="/views/Downloads.php">Downloads</a>
+            <a class="nav-item nav-link" href="/Modules.php">Modules</a>
+            <a class="nav-item nav-link" href="/Workflows.php">Workflows</a>
+            <a class="nav-item nav-link" href="/Downloads.php">Downloads</a>
         </div>
     </div>
 </nav>
