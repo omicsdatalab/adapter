@@ -7,10 +7,10 @@
  */
 require 'header.php';
 require 'navbar.php';
-require 'Module.php';
+require './models/Module.php';
 session_start();
 $userModule = null;
-require 'addModule.php';
+require './scripts/addModule.php';
 
 $xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();

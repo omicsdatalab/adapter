@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!file_exists($target_dir)) {
         mkdir($target_dir);
     }
-    
+
     $userModuleFile = $target_dir . "module.xml";
     $_SESSION["userModules"][] = $userModule;
     // If they have already added a module, append to that file.

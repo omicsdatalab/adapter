@@ -1,9 +1,9 @@
 <?php
 require 'header.php';
 require 'navbar.php';
-require 'Module.php';
+require './models/Module.php';
 session_start();
-require 'createInputFile.php';
+require './scripts/createInputFile.php';
 
 $xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();
@@ -50,7 +50,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                 </div>
                 <div class="form-group">
                     <label for="outputFolder">Output Folder</label>
-                    <input type="text" class="form-control" name="outputFolder" id="outputFolder">
+                    <input type="text" class="form-control" name="outputFolder" placeholder="Output Folder" id="outputFolder">
                 </div>
                 <div class="input-group mb-3">
                     <select class="form-control" id="moduleSelect">
@@ -132,7 +132,7 @@ if(empty($_SESSION['inputFileCreated'])) {
         const uniqueID = $("#uniqueId").val();
         const outputFolder = $("#outputFolder").val();
         const workflowStr = createWorkflowString();
-        $.get("./moduleList.php", function (data) {
+        $.get("./scripts/moduleList.php", function (data) {
             const parsedData = JSON.parse(data);
             workflow.map( module => {
                 for (let i = 0; i < parsedData.length; i++) {
