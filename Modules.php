@@ -15,6 +15,8 @@ require './scripts/addModule.php';
 $xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();
 
+$categories = explode("\n", file_get_contents('config/categories.txt'));
+
 if(empty($_SESSION['userModules'])) {
     $_SESSION['userModules'] = array();
     $modules = $_SESSION['userModules'];
@@ -46,6 +48,14 @@ if(empty($_SESSION['inputFileCreated'])) {
 ?>
     <br>
     <div class="container">
+        <div class="float-right">
+            <form method="get" action="scripts/resetModuleVars.php">
+                <button class="btn btn-primary btn-sm" type="submit">Reset Modules</button>
+            </form>
+        </div>
+        <br>
+        <br>
+
         <ul class="nav nav-tabs justify-content-center" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#all-modules">Module</a>
@@ -102,25 +112,31 @@ if(empty($_SESSION['inputFileCreated'])) {
                         <div class="col">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter a name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter a name" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="category">Category</label>
-                                <input type="text" class="form-control" name="category" id="category" placeholder="Enter a category">
+                                <select class="form-control" name="category" id="category" required>
+                                    <?php
+                                    foreach ($categories as $category) {
+                                        echo "<option>" . $category . "</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" name="description" placeholder="Enter a description">
+                        <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter a description" required></textarea>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-3">Input file is a parameter:</div>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio1" value="true">
+                                <input class="form-check-input" type="radio" name="inputParam" id="inputParamRadio1" value="true" required>
                                 <label class="form-check-label" for="inputParamTrue">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -131,13 +147,13 @@ if(empty($_SESSION['inputFileCreated'])) {
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Input File</label>
-                        <input type="text" class="form-control" name="inputFile" id="inputFile" placeholder="Enter an input file">
+                        <input type="text" class="form-control" name="inputFile" id="inputFile" placeholder="Enter an input file" required>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-3">Output file required?</div>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio1" value="true" checked>
+                                <input class="form-check-input" type="radio" name="outputFile_required" id="outputFileRadio1" value="true" checked required>
                                 <label class="form-check-label" for="outputFile_required">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -150,7 +166,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                         <div class="col-sm-3">Output file is a parameter:</div>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio1" value="true">
+                                <input class="form-check-input" type="radio" name="outputParam" id="outputParamRadio1" value="true" required>
                                 <label class="form-check-label" for="outputParamTrue">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -161,11 +177,11 @@ if(empty($_SESSION['inputFileCreated'])) {
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Output File</label>
-                        <input type="text" class="form-control" name="outputFile" id="outputFile" placeholder="Enter an output file">
+                        <input type="text" class="form-control" name="outputFile" id="outputFile" placeholder="Enter an output file" required>
                     </div>
                     <div class="form-group">
                         <label for="command">Command</label>
-                        <input type="text" class="form-control" id="command" name="command" placeholder="Enter a command">
+                        <input type="text" class="form-control" id="command" name="command" placeholder="Enter a command" required>
                     </div>
                     <div class="form-group">
                         <label for="inputFile">Parameters</label>

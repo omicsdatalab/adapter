@@ -14,6 +14,7 @@ if (file_exists($inputFile) && is_file($inputFile)) {
         ob_end_clean();
     }
     readfile($inputFile);
+    $_SESSION['inputFileCreated'] = false;
     exit;
 } else {
     echo "Error downloading file";
