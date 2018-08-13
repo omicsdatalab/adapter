@@ -4,6 +4,7 @@ require 'navbar.php';
 require './models/Module.php';
 session_start();
 require './scripts/createInputFile.php';
+require './scripts/resetWorkflowVars.php';
 
 $xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();
@@ -41,8 +42,8 @@ if(empty($_SESSION['inputFileCreated'])) {
 <br>
 <div class="container">
     <div class="float-right">
-        <form method="get" action="scripts/resetWorkflowVars.php">
-            <button class="btn btn-primary btn-sm" type="submit">Reset Workflows</button>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <button class="btn btn-primary btn-sm" name="resetWfVars" type="submit">Reset Workflows</button>
         </form>
     </div>
     <br>
@@ -82,7 +83,7 @@ if(empty($_SESSION['inputFileCreated'])) {
     </div>
     <div id="workflowForms"></div>
 </div>
-  </body>
+</body>
 <script>
     let workflow = [];
     let moduleList = [];
@@ -202,7 +203,7 @@ if(empty($_SESSION['inputFileCreated'])) {
             html += '</div>';
         }
 
-        const buttonHtml = '<button class="btn btn-primary margin-bot-top" id="inputFileButton" type="submit">Create Input File</button>';
+        const buttonHtml = '<button class="btn btn-primary margin-bot-top" id="inputFileButton" name="createInputFile" type="submit">Create Input File</button>';
         html += buttonHtml;
         html += '</form>';
         $("#workflowForms").append(html);

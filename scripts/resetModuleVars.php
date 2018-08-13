@@ -1,11 +1,13 @@
 <?php
-session_start();
-if(!empty($_SESSION['moduleFileCreated'])) {
-    unset($_SESSION['moduleFileCreated']);
+//session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST["resetModuleVars"])) {
+        unset($_SESSION['moduleFileCreated']);
+        unset($_SESSION['userModules']);
+//        $_SESSION['userModules'] = array();
+        echo '<p>Sucessfully reset session variables.</p>';
+    }
 }
 
-if(!empty($_SESSION['userModules'])) {
-    unset($_SESSION['userModules']);
-}
-
-echo '<a href="../Modules.php">Back to Modules</a>';
+//echo '<a href="../Modules.php">Back to Modules</a>';

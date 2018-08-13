@@ -11,6 +11,7 @@ require './models/Module.php';
 session_start();
 $userModule = null;
 require './scripts/addModule.php';
+require './scripts/resetModuleVars.php';
 
 $xml = simplexml_load_file("module.xml") or die("Error: Cannot create xml object.");
 $modules = array();
@@ -49,8 +50,8 @@ if(empty($_SESSION['inputFileCreated'])) {
     <br>
     <div class="container">
         <div class="float-right">
-            <form method="get" action="scripts/resetModuleVars.php">
-                <button class="btn btn-primary btn-sm" type="submit">Reset Modules</button>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <button class="btn btn-primary btn-sm" name="resetModuleVars" type="submit">Reset Modules</button>
             </form>
         </div>
         <br>
@@ -191,7 +192,7 @@ if(empty($_SESSION['inputFileCreated'])) {
 <!--                        <input type="file" class="custom-file-input" name="moduleFile" id="moduleFile">-->
 <!--                        <label class="custom-file-label" for="moduleFile">Choose Module Executable</label>-->
 <!--                    </div>-->
-                    <button type="submit" class="btn btn-primary margin-bot-top">Submit</button>
+                    <button type="submit" name="createModulesFile" class="btn btn-primary margin-bot-top">Submit</button>
                 </form>
             </div>
         </div>

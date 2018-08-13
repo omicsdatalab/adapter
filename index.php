@@ -2,6 +2,7 @@
 require './header.php';
 require './navbar.php';
 session_start();
+require './scripts/resetSessionVars.php';
 ?>
 <div class="container">
     <br>
@@ -52,8 +53,8 @@ session_start();
                         </p>
                     </div>
                     <hr>
-                    <form method="get" action="scripts/resetSessionVars.php">
-                        <button class="btn btn-primary" type="submit">Reset Session</button>
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <button class="btn btn-primary" name="resetAllVars" type="submit">Reset Session</button>
                     </form>
                 </div>
             </div>
