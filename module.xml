@@ -7,7 +7,7 @@
         <inputFile>input.xml</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>false</outputFile_required>
-        <outputFile>modules.xml</outputFile>
+        <outputFile>N/A</outputFile>
         <outputParam>true</outputParam>
         <params>-spectrum_files xyz.mgf -output_folder folder_path -id_params params.par</params>
         <command>java -cp SearchGUI-3.3.3.jar eu.isas.searchgui.cmd.SearchCLI</command>
@@ -84,4 +84,180 @@
         <params>-exportType exportProteinGroups|exportPSMs|exportProteinsOnly|exportRepProteinPerPAGOnly|exportProteoAnnotator  [-verboseOutput true|false] [-compress true|false]</params>
         <command>java -jar "mzidlib-1.7.jar" Mzid2Csv mydata_fdr.mzid.gz mydata.csv</command>
     </module>
+    <module>
+        <name>AddRetentionTimeToMzid</name>
+        <category>n/a</category>
+        <description>Add Retention Time to Mzid</description>
+        <inputFile>[input].mzid or [input].mzid.gz</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>[output]. mzid or [output]. mzid.gz</outputFile>
+        <outputParam>false</outputParam>
+        <params>-compress true|false</params>
+        <command>java -jar "mzidlib-1.7.jar" AddRetentionTimeToMzid input.mzid output.mzid</command>
+    </module>
+    <module>
+        <name>msconvert</name>
+        <category>n/a</category>
+        <description>msconvert is a command line tool for converting between various file formats. Full documentation for this tool can be found at: http://proteowizard.sourceforge.net/tools/msconvert.html</description>
+        <inputFile>data.RAW</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>false</outputFile_required>
+        <outputFile>N/A</outputFile>
+        <outputParam>false</outputParam>
+        <params>-f [ --filelist ] arg : specify text file containing filenames
+  -o [ --outdir ] arg (=.) : set output directory ('-' for stdout) [.]
+  -c [ --config ] arg : configuration file (optionName=value)
+  --outfile arg : Override the name of output file.
+  -e [ --ext ] arg : set extension for output files 
+  [mzML|mzXML|mgf|txt|mz5]
+  --mzML : write mzML format [default]
+  --mzXML : write mzXML format
+  --mz5 : write mz5 format
+  --mgf : write Mascot generic format
+  --text : write ProteoWizard internal text format
+  --ms1 : write MS1 format
+  --cms1 : write CMS1 format
+  --ms2 : write MS2 format
+  --cms2 : write CMS2 format
+  -v [ --verbose ] : display detailed progress information
+  --64 : set default binary encoding to 64-bit precision 
+  [default]
+  --32 : set default binary encoding to 32-bit precision
+  --mz64 : encode m/z values in 64-bit precision [default]
+  --mz32 : encode m/z values in 32-bit precision
+  --inten64 : encode intensity values in 64-bit precision
+  --inten32 : encode intensity values in 32-bit precision 
+  [default]
+  --noindex : do not write index
+  -i [ --contactInfo ] arg : filename for contact info
+  -z [ --zlib ] : use zlib compression for binary data
+  --numpressLinear [toler] : use numpress linear prediction lossy compression for binary mz and rt data (relative error guaranteed less than given tolerance, default is 2e-009) 
+  --numpressPic : use numpress positive integer lossy compression for binary intensities (maximum 0.5 absolute error guaranteed)
+  --numpressSlof [toler] : use numpress short logged float lossy compression for binary intensities (relative error guaranteed less than given tolerance, default is 0.0002)
+  -n [ --numpressAll] : same as --numpressLinear --numpressSlof (see https://github.com/fickludd/ms-numpress for more info)
+  --numpressLinearAbsTol : desired absolute tolerance for linear numpress prediction (e.g. use 1e-4 for a mass accuracy of 0.2 ppm at 500 m/z, default uses -1.0 for maximal accuracy). Note: setting this value may substantially reduce file size, this overrides relative accuracy tolerance. 
+  Numpress may be used at the same time as zlib (-z) for best compression, though some older mzML parsers may not handle this properly.
+  -g [ --gzip ] : gzip entire output file (adds .gz to filename)
+  --filter arg : add a spectrum list filter
+  --merge : create a single output file from multiple input 
+  files by merging file-level metadata and 
+  concatenating spectrum lists
+  --simAsSpectra : write selected ion monitoring as spectra, not 
+  chromatograms
+  --srmAsSpectra : write selected reaction monitoring as spectra, not
+  chromatograms
+  --combineIonMobilitySpectra : write all drift bins/scans in a frame/block as one spectrum instead of individual spectra
+  --acceptZeroLengthSpectra : some vendor readers have an efficient way of filtering out empty spectra, but it takes more time to open the file
+  --ignoreUnknownInstrumentError : if true, if an instrument cannot be determined from a vendor file, it will not be an error 
+  --help : show this message, with extra detail on filter options</params>
+        <command>msconvert.exe data.raw</command>
+    </module>
+    <module>
+        <name>msaccess</name>
+        <category>N/A</category>
+        <description>msaccess is a command line tool for extracting data and metadata from data files. Full documentation for this tool can be found at: http://proteowizard.sourceforge.net/tools/msaccess.html</description>
+        <inputFile>data.mzML</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>false</outputFile_required>
+        <outputFile>false</outputFile>
+        <outputParam>true</outputParam>
+        <params>-f [ --filelist ] arg : text file containing filenames to process
+-o [ --outdir ] arg (=.) : output directory
+-c [ --config ] arg : configuration file (containing settings as optionName=value)
+-x [ --exec ] arg : execute command, e.g --exec "tic mz=409-412"
+--filter arg : add a spectrum list filter, e.g. --filter="msLevel [2,3]"
+(see a full list of supported filter types here) 
+-v [ --verbose ] : print progress messages</params>
+        <command>msaccess.exe data.mzML</command>
+    </module>
+    <module>
+        <name>idconvert</name>
+        <category>N/A</category>
+        <description>idconvert is a command line tool for converting between various file formats. pepXML, protXML, mzIdentML. Write: pepXML, mzIdentML. Full documentation for this tool can be found at: http://proteowizard.sourceforge.net/tools/idconvert.html</description>
+        <inputFile>data.pepXML, data.protXML or data.mzIdentML</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>false</outputFile_required>
+        <outputFile>data.pepXML, data.protXML, data.mzIdentML</outputFile>
+        <outputParam>false</outputParam>
+        <params>--pepXML -o my_output_dir</params>
+        <command>idconvert data.pepXML</command>
+    </module>
+    <module>
+        <name>mspicture</name>
+        <category>n/a</category>
+        <description>msPicture is a tool that produces pseudo2d gels from mass spectra data. There are many options available for manipulating layout, color scheme, and markup of the resulting image. Being part of the proteowizard suite, msPicture can read a wide variety of MS data formats. Marking peptide locations is done easily by giving the location of pepXML, msInspect, or even a flat file.</description>
+        <inputFile>data.mzML</inputFile>
+        <inputParam>false</inputParam>
+        <outputFile_required>false</outputFile_required>
+        <outputFile>example2.mzXML.image</outputFile>
+        <outputParam>false</outputParam>
+        <params>  -o [ --outdir ] arg (=.) : output directory
+-c [ --config ] arg      : configuration file (optionName=value) (ignored)
+-l [ --label ] arg       : set filename label to xxx
+--mzLow arg              : set low m/z cutoff
+--mzHigh arg             : set high m/z cutoff
+--timeScale arg          : set scale of time axis
+-b [ --binCount ] arg    : set histogram bin count
+-t [ --time ]            : render linearly to time
+-s [ --scan ]            : render linearly to scans
+-z [ --zRadius ] arg     : set intensity function z-score radius [=2]
+--bry                    : use blue-red-yellow gradient
+--grey                   : use grey-scale gradient
+--binSum                 : sum intensity in bins [default = max intensity]
+-m [ --ms2locs ]         : indicate masses selected for ms2
+--shape arg              : shape of the pseudo2d gel markup 
+    [circle(default)|square].
+-p [ --pepxml ] arg      : pepxml file location
+-i [ --msi ] arg         : msInspect output file location
+-f [ --flat ] arg        : peptide file location (nativeID rt mz score seq)
+-w [--width] arg         : set image width in pixels [default is calculated]
+-h [--height] arg        : set image height in pixels [default is calculated]
+-v [ --verbose ]         : prints extra information.
+-h [ --help ]            : print this helpful message.
+
+Commands:
+      label=xxxx (set filename label to xxxx)
+      mzLow=N (set low m/z cutoff)
+      mzHigh=N (set high m/z cutoff)
+      timeScale=N (set scaling factor for time axis)
+      binCount=N (set histogram bin count)
+      zRadius=N (set intensity function z-score radius [=2])
+      scan (render y-axis linear with scans)
+      time (render y-axis linear with time)
+      bry (use blue-red-yellow gradient)
+      grey (use grey-scale gradient)
+      binSum (sum intensity in bins [default = max intensity])
+      ms2locs (indicate masses selected for ms2)
+      pepxml=xxx (set ms2 id's from pepxml file xxx)
+      msi=xxx (set ms2 id's from msinspect output file xxx)
+      flat=xxx (set ms2 id's from tab delim file xxx)</params>
+        <command>mspicture.exe filename.mzML</command>
+    </module>
+    <module>
+        <name>qtofpeakpicker</name>
+        <category>n/a</category>
+        <description>qtofpeakpicker is a command line tool for peak detection in TOF (Time Of Flight spectra). Full documentation for this tool can be found at: http://proteowizard.sourceforge.net/tools/qtofpeakpicker.html</description>
+        <inputFile>All proteowizard formats are supported.</inputFile>
+        <inputParam>true</inputParam>
+        <outputFile_required>true</outputFile_required>
+        <outputFile>true</outputFile>
+        <outputParam>true</outputParam>
+        <params>File Handling:: -H [ --help ] produce help message -V [ --version ] produces version information -I [ --in ] arg input file -O [ --out ] arg output file -C [ --config-file ] arg configuration file
+Processing Options:: --resolution arg (=20000) instrument resolution. --area arg (=1) default area, otherwise store intensity (0). --threshold arg (=10) removes peaks less than threshold times smallest intensity in spectrum --numberofpeaks arg (=0) maximum number of peaks per spectrum (0 = no limit)
+Advanced Processing Options:: -i [ --widthint ] arg (=2) peak apex +- integration width --smoothwidth arg (=1) smoothing width</params>
+        <command>qtofpeakpicker.exe</command>
+    </module>
+    <!-- <module>
+        <name></name>
+        <category></category>
+        <description></description>
+        <inputFile></inputFile>
+        <inputParam></inputParam>
+        <outputFile_required></outputFile_required>
+        <outputFile></outputFile>
+        <outputParam></outputParam>
+        <params></params>
+        <command></command>
+    </module> -->
 </modules>

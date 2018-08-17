@@ -46,18 +46,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 function createInputFileString($inputFile) {
+    if(!isset($inputFile)) {
+        $inputFile = "";
+    }
     $inputFile = trim($inputFile);
     $inputStr = '"Inputfile:' . $inputFile . '"';
     return $inputStr;
 }
 
 function createOutputFileString($outputFile) {
+    if(!isset($outputFile)) {
+        $outputFile = "";
+    }
     $outputFile = trim($outputFile);
     $outputStr = '"outputfile:' . $outputFile . '"';
     return $outputStr;
 }
 
 function createParamsString($params) {
+    if(!isset($params)) {
+        $params = "";
+    }
     $paramStr = '"' . trim($params) . '"';
     return $paramStr;
 }

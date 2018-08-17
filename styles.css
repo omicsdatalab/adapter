@@ -10,6 +10,10 @@
     margin-bottom: 1em;
 }
 
+.margin-bot-half {
+    margin-bottom: 0.5em;
+}
+
 .margin-left {
     margin-left: 1em;
 }

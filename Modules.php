@@ -82,7 +82,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                                 </div>
                             </div>
                             <p class="h5">Description:</p>
-                            <p class="pad-left pad-bot"><?php echo $module->description?></p>
+                            <textarea class="form-control margin-bot-half" cols="30" rows="4" readonly><?php echo $module->description?></textarea>
                             <div class="row">
                                 <div class="col-sm">
                                     <p class="h5">Input File:</p>
@@ -102,7 +102,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                             <p class="h5">Command:</p>
                             <p class="pad-left pad-bot"><?php echo $module->command?></p>
                             <p class="h5">Parameters:</p>
-                            <p class="pad-left pad-bot"><?php echo $module->params?></p>
+                            <textarea class="form-control margin-bot-half" cols="30" rows="4" readonly><?php echo $module->params?></textarea>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -188,10 +188,6 @@ if(empty($_SESSION['inputFileCreated'])) {
                         <label for="inputFile">Parameters</label>
                         <textarea class="form-control" id="params" name="params" rows="3" placeholder="Enter the parameters."></textarea>
                     </div>
-<!--                    <div class="custom-file">-->
-<!--                        <input type="file" class="custom-file-input" name="moduleFile" id="moduleFile">-->
-<!--                        <label class="custom-file-label" for="moduleFile">Choose Module Executable</label>-->
-<!--                    </div>-->
                     <button type="submit" name="createModulesFile" class="btn btn-primary margin-bot-top">Submit</button>
                 </form>
             </div>

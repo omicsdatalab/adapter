@@ -53,12 +53,12 @@ if(empty($_SESSION['inputFileCreated'])) {
             <h4 class="card-title">Create a workflow</h4>
             <form>
                 <div class="form-group">
-                    <label for="description">Unique ID</label>
+                    <label for="description"><small style="color: red">*</small> Unique ID</label>
                     <input type="text" class="form-control" id="uniqueId" name="uniqueId" placeholder="Unique ID">
                 </div>
                 <div class="form-group">
-                    <label for="outputFolder">Output Folder</label>
-                    <input type="text" class="form-control" name="outputFolder" placeholder="Output Folder" id="outputFolder"   >
+                    <label for="outputFolder"><small style="color: red">*</small> Output Folder</label>
+                    <input type="text" class="form-control" name="outputFolder" placeholder="Output Folder" id="outputFolder">
                 </div>
                 <div class="input-group mb-3">
                     <select class="form-control" id="moduleSelect">
@@ -72,11 +72,12 @@ if(empty($_SESSION['inputFileCreated'])) {
                         <button class="btn btn-outline-primary" id="addModuleToWFButton" type="button">Add Module</button>
                     </div>
                 </div>
+                <p style="color: red"><small>* Required Fields</small></p>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="undoButton">Undo <i class="fas fa-undo"></i></button>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="resetButton">Clear <i class="far fa-times-circle"></i></button>
                 <br>
-                <p id="workflowTitle"></p>
-                <p id="workflow"></p>
+                <p class="margin-bot-top"><strong id="workflowTitle"></strong></p>
+                <p><strong id="workflow"></strong></p>
                 <button class="btn btn-primary" id="addVariables" disabled type="button">Add input variables</button>
             </form>
         </div>
@@ -110,6 +111,7 @@ if(empty($_SESSION['inputFileCreated'])) {
         if (workflow.length > 0) {
             workflow = [];
             $("#workflow").empty();
+            $("#workflowForms").empty();
             $("#workflowTitle").empty();
             setButtonDisabledIfInvalid();
         }
@@ -174,13 +176,13 @@ if(empty($_SESSION['inputFileCreated'])) {
             html += '<p><span class="h6">Output File Required? </span>' + workflowList[i]['outputFile_required'] + '</p>';
             html += '<p><span class="h6">Output is a parameter? </span>' + workflowList[i]['outputParam'] + '</p>';
             html += '</div>';
-            html += '<div class="col-sm">';
+            html += '<div class="col-sm-9">';
             html += '<p class="h6">Description:</p>';
-            html += '<p>' + workflowList[i]['description'] + '</p>';
+            html += '<textarea class="form-control margin-bot" cols="30" rows="4" readonly>' + workflowList[i]['description'] + '</textarea>'
             html += '</div>';
             html += '</div>';
             html += '<p class="h6">Parameters:</p>';
-            html += '<p class="pad-left pad-bot">' + workflowList[i]['params'] + '</p>';
+            html += '<textarea class="form-control margin-bot" cols="30" rows="4" readonly>' + workflowList[i]['params'] + '</textarea>'
             if (workflowList[i]['inputParam'] === 'false') {
                 html += '<div class="form-group">';
                 html += '<label for="inputFile">Input File</label>';
@@ -212,9 +214,9 @@ if(empty($_SESSION['inputFileCreated'])) {
     function createWorkflowDisplay() {
         let workflowString = "";
         workflow.map( x => {
-            workflowString = workflowString + x + '-->';
+            workflowString = workflowString + x + ' --> ';
         });
-        workflowString = workflowString.substring(0, workflowString.length - 3);
+        workflowString = workflowString.substring(0, workflowString.length - 5);
         if(workflow.length === 1) {
             $("#workflowTitle").text("Current Workflow:");
         }
