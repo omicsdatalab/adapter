@@ -13,31 +13,58 @@ if(empty($_SESSION['inputFileCreated'])) {
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <div>
-                <h5>Default Build</h5>
-                <form method="get" action="scripts/defaultBuild.php">
-                    <button class="btn btn-secondary" type="submit">Download</button>
-                </form>
+            <h5 class="card-title">System Requirements</h5>
+            <p class="card-text">Bioliner requires Java 8 to run, and around 1.2GB of free disk space.</p>
+            <div class="card-deck">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Default Build</h5>
+                        <p class="card-text">The default build comes with a set of example workflows, and the default module file.</p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="get" action="scripts/defaultBuild.php">
+                            <button class="btn btn-secondary btn-block" type="submit">Download</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Input File</h5>
+                        <?php if (!$_SESSION['inputFileCreated']): ?>
+                        <p class="card-text">You can generate an input file on the workflows page.</p>
+                        <?php else: ?>
+                            <p class="card-text">You can download the generated input file below.</p>
+                        <?php endif;?>
+                    </div>
+                    <div class="card-footer">
+                        <form method="get" action="scripts/userInputFile.php">
+                            <button class="btn btn-secondary btn-block" type="submit"
+                                    <?php if (!$_SESSION['inputFileCreated']): ?>disabled<?php endif;?>>Download</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Module File</h5>
+                        <?php if ($_SESSION['moduleFileCreated']): ?>
+                            <p class="card-text">With user-added modules</p>
+                        <?php endif; ?>
+                        <?php if (!$_SESSION['moduleFileCreated']): ?>
+                            <p class="card-text">You can generate a module file on the workflows page.</p>
+                            <p><small>A default module file is included with Bioliner.</small></p>
+                        <?php else: ?>
+                            <p class="card-text">You can download the generated module file below.</p>
+                        <?php endif;?>
+                    </div>
+                    <div class="card-footer">
+                        <form method="get" action="scripts/userModuleFile.php">
+                            <button class="btn btn-secondary btn-block" type="submit"
+                                    <?php if (!$_SESSION['moduleFileCreated']): ?>disabled<?php endif;?>>Download</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <?php if ($_SESSION['inputFileCreated']): ?>
-            <hr>
-            <div>
-                <h5>Input File</h5>
-                <form method="get" action="scripts/userInputFile.php">
-                    <button class="btn btn-secondary" type="submit">Download</button>
-                </form>
-            </div>
-            <?php endif; ?>
-            <?php if ($_SESSION['moduleFileCreated']): ?>
-            <hr>
-            <div>
-                <h5>Module File With User-Added Modules</h5>
-                <form method="get" action="scripts/userModuleFile.php">
-                    <button class="btn btn-secondary" type="submit">Download</button>
-                </form>
-            </div>
-            <?php endif; ?>
         </div>
     </div>
-
 </div>
