@@ -14,7 +14,7 @@ require './scripts/resetSessionVars.php';
                     <h4 class="card-title">Welcome to Bioliner</h4>
                     <div class="card-text">
                         <p>
-                            Bioliner is a tool used to facilitate a 'pipeline' of bioinformatics jobs. Each pipeline has a
+                            Bioliner is a command line application used to facilitate a 'pipeline' of bioinformatics jobs. Each pipeline has a
                             a list of modules to execute sequentially. Bioliner has several modules included and the
                             details on these can be found on the Modules page.
                         </p>
