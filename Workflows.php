@@ -172,9 +172,9 @@ if(empty($_SESSION['inputFileCreated'])) {
             html += '<div class="col-sm">';
             html += '<p><span class="h6">Name: </span>' + workflowList[i].name + '</p>';
             html += '<p><span class="h6">Category: </span>' + workflowList[i]['category'] + '</p>';
-            html += '<p><span class="h6">Input is a parameter? </span>' + workflowList[i]['inputParam'] + '</p>';
-            html += '<p><span class="h6">Output File Required? </span>' + workflowList[i]['outputFile_required'] + '</p>';
-            html += '<p><span class="h6">Output is a parameter? </span>' + workflowList[i]['outputParam'] + '</p>';
+            html += '<p class="text-capitalize"><span class="h6">Input File is a parameter? </span>' + workflowList[i]['inputParam'] + '</p>';
+            html += '<p class="text-capitalize"><span class="h6">Output File Required? </span>' + workflowList[i]['outputFile_required'] + '</p>';
+            html += '<p class="text-capitalize"><span class="h6">Output File is a parameter? </span>' + workflowList[i]['outputParam'] + '</p>';
             html += '</div>';
             html += '<div class="col-sm-9">';
             html += '<p class="h6">Description:</p>';
@@ -199,7 +199,8 @@ if(empty($_SESSION['inputFileCreated'])) {
             }
             html += '<div class="form-group">';
             html += '<label for="params">Parameters: </label>';
-            html += '<textarea class="form-control" name="input[' + i + '][params]"' + ' id="params"></textarea>';
+            html += '<p><small>If this module has a parameter to specify output folder, always use the folder you entered above.</small></p>'
+            html += '<textarea class="form-control" name="input[' + i + '][params]"' + ' id="params" placeholder="-param value"></textarea>';
             html += '</div>';
             html += '</div>';
             html += '</div>';

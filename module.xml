@@ -106,51 +106,49 @@
         <outputFile>N/A</outputFile>
         <outputParam>false</outputParam>
         <params>-f [ --filelist ] arg : specify text file containing filenames
-  -o [ --outdir ] arg (=.) : set output directory ('-' for stdout) [.]
-  -c [ --config ] arg : configuration file (optionName=value)
-  --outfile arg : Override the name of output file.
-  -e [ --ext ] arg : set extension for output files 
-  [mzML|mzXML|mgf|txt|mz5]
-  --mzML : write mzML format [default]
-  --mzXML : write mzXML format
-  --mz5 : write mz5 format
-  --mgf : write Mascot generic format
-  --text : write ProteoWizard internal text format
-  --ms1 : write MS1 format
-  --cms1 : write CMS1 format
-  --ms2 : write MS2 format
-  --cms2 : write CMS2 format
-  -v [ --verbose ] : display detailed progress information
-  --64 : set default binary encoding to 64-bit precision 
-  [default]
-  --32 : set default binary encoding to 32-bit precision
-  --mz64 : encode m/z values in 64-bit precision [default]
-  --mz32 : encode m/z values in 32-bit precision
-  --inten64 : encode intensity values in 64-bit precision
-  --inten32 : encode intensity values in 32-bit precision 
-  [default]
-  --noindex : do not write index
-  -i [ --contactInfo ] arg : filename for contact info
-  -z [ --zlib ] : use zlib compression for binary data
-  --numpressLinear [toler] : use numpress linear prediction lossy compression for binary mz and rt data (relative error guaranteed less than given tolerance, default is 2e-009) 
-  --numpressPic : use numpress positive integer lossy compression for binary intensities (maximum 0.5 absolute error guaranteed)
-  --numpressSlof [toler] : use numpress short logged float lossy compression for binary intensities (relative error guaranteed less than given tolerance, default is 0.0002)
-  -n [ --numpressAll] : same as --numpressLinear --numpressSlof (see https://github.com/fickludd/ms-numpress for more info)
-  --numpressLinearAbsTol : desired absolute tolerance for linear numpress prediction (e.g. use 1e-4 for a mass accuracy of 0.2 ppm at 500 m/z, default uses -1.0 for maximal accuracy). Note: setting this value may substantially reduce file size, this overrides relative accuracy tolerance. 
-  Numpress may be used at the same time as zlib (-z) for best compression, though some older mzML parsers may not handle this properly.
-  -g [ --gzip ] : gzip entire output file (adds .gz to filename)
-  --filter arg : add a spectrum list filter
-  --merge : create a single output file from multiple input 
-  files by merging file-level metadata and 
-  concatenating spectrum lists
-  --simAsSpectra : write selected ion monitoring as spectra, not 
-  chromatograms
-  --srmAsSpectra : write selected reaction monitoring as spectra, not
-  chromatograms
-  --combineIonMobilitySpectra : write all drift bins/scans in a frame/block as one spectrum instead of individual spectra
-  --acceptZeroLengthSpectra : some vendor readers have an efficient way of filtering out empty spectra, but it takes more time to open the file
-  --ignoreUnknownInstrumentError : if true, if an instrument cannot be determined from a vendor file, it will not be an error 
-  --help : show this message, with extra detail on filter options</params>
+-o [ --outdir ] arg (=.) : set output directory ('-' for stdout) [.]
+-c [ --config ] arg : configuration file (optionName=value)
+--outfile arg : Override the name of output file.
+-e [ --ext ] arg : set extension for output files
+[mzML|mzXML|mgf|txt|mz5]
+--mzML : write mzML format [default]
+--mzXML : write mzXML format
+--mz5 : write mz5 format
+--mgf : write Mascot generic format
+--text : write ProteoWizard internal text format
+--ms1 : write MS1 format
+--cms1 : write CMS1 format
+--ms2 : write MS2 format
+--cms2 : write CMS2 format
+-v [ --verbose ] : display detailed progress information
+--64 : set default binary encoding to 64-bit precision
+[default]
+--32 : set default binary encoding to 32-bit precision
+--mz64 : encode m/z values in 64-bit precision [default]
+--mz32 : encode m/z values in 32-bit precision
+--inten64 : encode intensity values in 64-bit precision
+--inten32 : encode intensity values in 32-bit precision
+[default]
+--noindex : do not write index
+-i [ --contactInfo ] arg : filename for contact info
+-z [ --zlib ] : use zlib compression for binary data
+--numpressLinear [toler] : use numpress linear prediction lossy compression for binary mz and rt data (relative error guaranteed less than given tolerance, default is 2e-009)
+--numpressPic : use numpress positive integer lossy compression for binary intensities (maximum 0.5 absolute error guaranteed)
+--numpressSlof [toler] : use numpress short logged float lossy compression for binary intensities (relative error guaranteed less than given tolerance, default is 0.0002)
+-n [ --numpressAll] : same as --numpressLinear --numpressSlof (see https://github.com/fickludd/ms-numpress for more info)
+--numpressLinearAbsTol : desired absolute tolerance for linear numpress prediction (e.g. use 1e-4 for a mass accuracy of 0.2 ppm at 500 m/z, default uses -1.0 for maximal accuracy). Note: setting this value may substantially reduce file size, this overrides relative accuracy tolerance.
+Numpress may be used at the same time as zlib (-z) for best compression, though some older mzML parsers may not handle this properly.
+-g [ --gzip ] : gzip entire output file (adds .gz to filename)
+--filter arg : add a spectrum list filter
+--merge : create a single output file from multiple input
+files by merging file-level metadata and
+concatenating spectrum lists
+--simAsSpectra : write selected ion monitoring as spectra, not chromatograms
+--srmAsSpectra : write selected reaction monitoring as spectra, not chromatograms
+--combineIonMobilitySpectra : write all drift bins/scans in a frame/block as one spectrum instead of individual spectra
+--acceptZeroLengthSpectra : some vendor readers have an efficient way of filtering out empty spectra, but it takes more time to open the file
+--ignoreUnknownInstrumentError : if true, if an instrument cannot be determined from a vendor file, it will not be an error
+--help : show this message, with extra detail on filter options</params>
         <command>msconvert.exe data.raw</command>
     </module>
     <module>
@@ -192,29 +190,28 @@
         <outputFile_required>false</outputFile_required>
         <outputFile>example2.mzXML.image</outputFile>
         <outputParam>false</outputParam>
-        <params>  -o [ --outdir ] arg (=.) : output directory
-  -c [ --config ] arg      : configuration file (optionName=value) (ignored)
-  -l [ --label ] arg       : set filename label to xxx
-  --mzLow arg              : set low m/z cutoff
-  --mzHigh arg             : set high m/z cutoff
-  --timeScale arg          : set scale of time axis
-  -b [ --binCount ] arg    : set histogram bin count
-  -t [ --time ]            : render linearly to time
-  -s [ --scan ]            : render linearly to scans
-  -z [ --zRadius ] arg     : set intensity function z-score radius [=2]
-  --bry                    : use blue-red-yellow gradient
-  --grey                   : use grey-scale gradient
-  --binSum                 : sum intensity in bins [default = max intensity]
-  -m [ --ms2locs ]         : indicate masses selected for ms2
-  --shape arg              : shape of the pseudo2d gel markup 
-                           [circle(default)|square].
-  -p [ --pepxml ] arg      : pepxml file location
-  -i [ --msi ] arg         : msInspect output file location
-  -f [ --flat ] arg        : peptide file location (nativeID rt mz score seq)
-  -w [--width] arg         : set image width in pixels [default is calculated]
-  -h [--height] arg        : set image height in pixels [default is calculated]
-  -v [ --verbose ]         : prints extra information.
-  -h [ --help ]            : print this helpful message.
+        <params>-o [ --outdir ] arg (=.) : output directory
+-c [ --config ] arg      : configuration file (optionName=value) (ignored)
+-l [ --label ] arg       : set filename label to xxx
+--mzLow arg              : set low m/z cutoff
+--mzHigh arg             : set high m/z cutoff
+--timeScale arg          : set scale of time axis
+-b [ --binCount ] arg    : set histogram bin count
+-t [ --time ]            : render linearly to time
+-s [ --scan ]            : render linearly to scans
+-z [ --zRadius ] arg     : set intensity function z-score radius [=2]
+--bry                    : use blue-red-yellow gradient
+--grey                   : use grey-scale gradient
+--binSum                 : sum intensity in bins [default = max intensity]
+-m [ --ms2locs ]         : indicate masses selected for ms2
+--shape arg              : shape of the pseudo2d gel markup [circle(default)|square].
+-p [ --pepxml ] arg      : pepxml file location
+-i [ --msi ] arg         : msInspect output file location
+-f [ --flat ] arg        : peptide file location (nativeID rt mz score seq)
+-w [--width] arg         : set image width in pixels [default is calculated]
+-h [--height] arg        : set image height in pixels [default is calculated]
+-v [ --verbose ]         : prints extra information.
+-h [ --help ]            : print this helpful message.
 
 Commands:
       label=xxxx (set filename label to xxxx)
@@ -252,11 +249,12 @@ Advanced Processing Options:: -i [ --widthint ] arg (=2) peak apex +- integratio
         <name>blastn</name>
         <category>search</category>
         <description>The blastn application searches a nucleotide query against nucleotide subject sequences or a nucleotide database. An option of type "flag" takes no arguments, but if present the argument is true. 
-        Four different tasks are supported: 
-            1.) "megablast", for very similar sequences (e.g, sequencing errors), 
-            2.) "dc-megablast", typically used for inter-species comparisons, 
-            3.) "blastn", the traditional program used for inter-species comparisons, 
-            4.) "blastn-short", optimized for sequences less than 30 nucleotides.
+Four different tasks are supported:
+    1.) "megablast", for very similar sequences (e.g, sequencing errors),
+    2.) "dc-megablast", typically used for inter-species comparisons,
+    3.) "blastn", the traditional program used for inter-species comparisons,
+    4.) "blastn-short", optimized for sequences less than 30 nucleotides.
+    Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
         </description>
         <inputFile>[file].fasta</inputFile>
         <inputParam>true</inputParam>
@@ -392,7 +390,15 @@ window_size	dc-megablast	integer	40	Multiple hits window size, use 0 to specify 
     <module>
         <name>blastp</name>
         <category>search</category>
-        <description>The blastp application searches a protein sequence against protein subject sequences or a protein database. An option of type "flag" takes no arguments, but if present the argument is true. Three different tasks are supported: 1.) "blastp", for standard protein-protein comparisons, 2.) "blastp-short", optimized for query sequences shorter than 30 residues, and 3.) "blastp-fast", a faster version that uses a larger word-size per https://www.ncbi.nlm.nih.gov/pubmed/17921491. This table reflects the 2.2.27 BLAST+ release.</description>
+        <description>The blastp application searches a protein sequence against protein subject sequences or a protein database.
+An option of type "flag" takes no arguments, but if present the argument is true.
+Three different tasks are supported:
+        1.) "blastp", for standard protein-protein comparisons,
+        2.) "blastp-short", optimized for query sequences shorter than 30 residues, and
+        3.) "blastp-fast", a faster version that uses a larger word-size per https://www.ncbi.nlm.nih.gov/pubmed/17921491.
+This table reflects the 2.2.27 BLAST+ release.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
+        </description>
         <inputFile>[file].fasta</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>true</outputFile_required>
@@ -527,9 +533,10 @@ use_sw_tback	all	flag	N/A	Compute locally optimal Smith-Waterman alignments?</pa
         <name>blastx</name>
         <category>search</category>
         <description>The blastx application translates a nucleotide query and searches it against protein subject sequences or a protein database. 
-    Two different tasks are supported: 
-        1.) "blastx" for standard translated nucleotide-protein comparison and 
-        2.) "blastx-fast", a faster version that uses a larger word-size based on https://www.ncbi.nlm.nih.gov/pubmed/17921491.
+Two different tasks are supported:
+    1.) "blastx" for standard translated nucleotide-protein comparison and
+    2.) "blastx-fast", a faster version that uses a larger word-size based on https://www.ncbi.nlm.nih.gov/pubmed/17921491.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
         </description>
         <inputFile>[file].fasta</inputFile>
         <inputParam>true</inputParam>
@@ -656,9 +663,10 @@ comp_based_stats	all	integer	2	Use composition-based statistics for blastx:
         <name>tblastn</name>
         <category>search</category>
         <description>The tblastn application searches a protein query against nucleotide subject sequences or a nucleotide database translated at search time. 
-        Two different tasks are supported: 
-        1.) "tblastn" for a standard protein-translated nucleotide comparison and 
-        2.) "tblastn-fast" for a faster version with a larger word-size based on https://www.ncbi.nlm.nih.gov/pubmed/17921491.
+Two different tasks are supported:
+    1.) "tblastn" for a standard protein-translated nucleotide comparison and
+    2.) "tblastn-fast" for a faster version with a larger word-size based on https://www.ncbi.nlm.nih.gov/pubmed/17921491.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
         </description>
         <inputFile>[file].fasta</inputFile>
         <inputParam>true</inputParam>
@@ -784,8 +792,10 @@ comp_based_stats	all	string	2	Use composition-based statistics for tblastn:
         <name>tblastx</name>
         <category>search</category>
         <description>The tblastx application searches a translated nucleotide query against translated nucleotide subject sequences or a translated nucleotide database.
-         An option of type "flag" takes no arguments, but if present the argument is true. This table reflects the 2.2.27 BLAST+ release. 
-         Only ungapped searches are supported for tblastx.</description>
+An option of type "flag" takes no arguments, but if present the argument is true. This table reflects the 2.2.27 BLAST+ release.
+Only ungapped searches are supported for tblastx.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
+        </description>
         <inputFile>[file].fasta</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>true</outputFile_required>
@@ -913,7 +923,9 @@ max_intron_length	integer	0	Length of the largest intron allowed in a translated
     <module>
         <name>Makeblastdb</name>
         <category>Database Builder</category>
-        <description>This application builds a BLAST database. An option of type "flag" takes no arguments, but if present the argument is true.</description>
+        <description>This application builds a BLAST database. An option of type "flag" takes no arguments, but if present the argument is true.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a
+        </description>
         <inputFile>fasta: for FASTA file(s)
 blastdb: for BLAST database(s)
 asn1_txt: for Seq-entries in text ASN.1 format
@@ -951,9 +963,10 @@ logfile	string	none	Program log file (default is stderr).
         <name>Makeprofiledb</name>
         <category>Database</category>
         <description>This application builds an RPS-BLAST database. An option of type "flag" takes no arguments, but if present the argument is true.
-        COBALT (a multiple sequence alignment program) and DELTA-BLAST both use RPS-BLAST searches as part of their processing, but use specialized versions of the database. 
-        This application can build databases for COBALT, DELTA-BLAST, and a standard RPS-BLAST search. 
-        The "dbtype" option (see entry in table) determines which flavor of the database is built.</description>
+COBALT (a multiple sequence alignment program) and DELTA-BLAST both use RPS-BLAST searches as part of their processing, but use specialized versions of the database.
+This application can build databases for COBALT, DELTA-BLAST, and a standard RPS-BLAST search.
+The "dbtype" option (see entry in table) determines which flavor of the database is built.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a</description>
         <inputFile>Input file that contains a list of scoremat files (delimited by space, tab, or newline)</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>true</outputFile_required>
@@ -981,7 +994,8 @@ logfile	string	none	Program log file (default is stderr).
     <module>
         <name>Blastdbcmd</name>
         <category>Database</category>
-        <description>This application reads a BLAST database and produces reports.</description>
+        <description>This application reads a BLAST database and produces reports.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a</description>
         <inputFile>BLAST database</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>true</outputFile_required>
@@ -1022,10 +1036,11 @@ ctrl_a	flag	N/A	Use Ctrl-A as the non-redundant definition line separator.
         <name>Makembindex</name>
         <category>Database</category>
         <description>The indexed databases created by makembindex are used by production MegaBLAST software and by a new srsearch utility designed to quickly search for nearly exact matches (up to one mismatch) of short queries against a genomic database. 
-        When a FASTA formatted file is used as the input, then masking by lower case letters is incorporated in the index. 
-        Makembindex can currently build two types of indices, called "old style" and "new style" indexing. 
-        The NCBI offers full support for the new style and has deprecated the old style. 
-        A MegaBLAST search with a new style index requires that both the index and the corresponding BLAST database be present.</description>
+When a FASTA formatted file is used as the input, then masking by lower case letters is incorporated in the index.
+Makembindex can currently build two types of indices, called "old style" and "new style" indexing.
+The NCBI offers full support for the new style and has deprecated the old style.
+A MegaBLAST search with a new style index requires that both the index and the corresponding BLAST database be present.
+Full documentation for this tool can be found on the following page: https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a</description>
         <inputFile>input</inputFile>
         <inputParam>true</inputParam>
         <outputFile_required>true</outputFile_required>

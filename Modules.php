@@ -85,7 +85,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                             <textarea class="form-control margin-bot-half" cols="30" rows="4" readonly><?php echo $module->description?></textarea>
                             <div class="row">
                                 <div class="col-sm">
-                                    <p class="h5">Input File:</p>
+                                    <p class="h5">Input File Format:</p>
                                     <p class="pad-left pad-bot"><?php echo $module->inputFile?></p>
                                 </div>
                                 <div class="col-sm">
@@ -94,7 +94,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                                 </div>
                                 <div class="col-sm">
                                     <?php if ($module->outputFile_required == 'true'): ?>
-                                        <p class="h5">Output File:</p>
+                                        <p class="h5">Output File Format:</p>
                                         <p class="pad-left pad-bot"><?php echo $module->outputFile?></p>
                                     <?php endif; ?>
                                 </div>
@@ -102,7 +102,7 @@ if(empty($_SESSION['inputFileCreated'])) {
                             <p class="h5">Command:</p>
                             <p class="pad-left pad-bot"><?php echo $module->command?></p>
                             <p class="h5">Parameters:</p>
-                            <textarea class="form-control margin-bot-half" cols="30" rows="4" readonly><?php echo $module->params?></textarea>
+                            <textarea class="form-control margin-bot" cols="30" rows="4" readonly><?php echo $module->params?></textarea>
                         </div>
                     </div>
                 <?php endforeach; ?>
