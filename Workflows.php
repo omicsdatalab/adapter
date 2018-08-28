@@ -186,6 +186,9 @@ if(empty($_SESSION['inputFileCreated'])) {
             if (workflowList[i]['inputParam'] === 'false') {
                 html += '<div class="form-group">';
                 html += '<label for="inputFile">Input File</label>';
+                if(i == 0) {
+                    html += '<p><small>Please enter the full file path for the first module in the workflow.</small></p>'
+                }
                 html += '<input type="text" class="form-control" name="input[' + i + '][inputFile]"'
                     + ' id="inputFile" placeholder="Enter an input file" required>';
                 html += '</div>';
