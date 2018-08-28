@@ -19,7 +19,7 @@ php -v
 ```
 Clone the project: 
 ```
-git clone https://github.com/omicsdatalab/biolinerwebsite.git
+git clone https://github.com/omicsdatalab/adapter.git
 ```
 Move all files from biolinerwebsite to your development server, then start the server.
 
@@ -32,4 +32,4 @@ Move all files from biolinerwebsite to your development server, then start the s
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
