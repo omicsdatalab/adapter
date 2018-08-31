@@ -15,8 +15,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./Downloads.php">Downloads</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./Guides.php">Guides</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.php">OmicsDataLab</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://github.com/omicsdatalab/bioliner"><i class="fab fa-github"></i>GitHub</a>
                 </li>
